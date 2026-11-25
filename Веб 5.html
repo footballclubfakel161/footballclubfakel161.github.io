@@ -12,9 +12,16 @@
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span>
+        <div class="nav-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png?v=2" alt="ЛФК Факел">
+                <span>ЛФК «ФАКЕЛ»</span>
+            </a>
         </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
     </nav>
 
     <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -22,14 +29,17 @@
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
             <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="Веб 4.html">Матчи</a></li>
+
             <div class="sidebar-title">Клуб</div>
-            <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
-            <div class="sidebar-title">Турнир</div>
-            <li><a href="Веб 4.html">Матч-центр</a></li>
-            <div class="sidebar-title">Медиа и Партнеры</div>
+            <li><a href="about.html">О клубе</a></li>
+
+            <div class="sidebar-title">Медиа</div>
             <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
             <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
+
+            <div class="sidebar-title">Сотрудничество</div>
             <li><a href="Веб 5.html" class="active">Партнерам</a></li>
         </ul>
     </aside>
@@ -43,7 +53,7 @@
         <div class="partner-card" data-aos="fade-up">
             <p style="font-size: 18px; font-weight: 700; color: var(--brand-blue);">ЛФК «Факел» — это яркая и развивающаяся команда. Мы всегда рады новым друзьям, спонсорам и партнерам!</p>
             <p style="font-size: 16px; font-weight: 500;">Поддерживая нас, вы не просто размещаете рекламу, а помогаете развивать честный любительский футбол в Ростове-на-Дону. Мы гибкие, ценим поддержку и всегда готовы обсуждать абсолютно любые форматы взаимодействия.</p>
-            
+
             <h3 style="color: var(--fire-main); margin-top: 30px;">ЧТО МЫ МОЖЕМ ПРЕДЛОЖИТЬ:</h3>
             <ul style="color: var(--text-dark); font-weight: 700; line-height: 2.2; font-size: 16px; margin-top: 15px;">
                 <li><span style="color: var(--brand-light);">⚡</span> <strong>Логотип на экипировке</strong> — ваш бренд будет заметен в каждой игре.</li>
@@ -52,15 +62,15 @@
             </ul>
             <p style="font-size: 16px; font-weight: 700; margin-top: 20px; color: var(--brand-blue);">Пишите, звоните — мы готовы к любым переговорам и обязательно договоримся!</p>
         </div>
-        
+
         <h2 class="section-title" data-aos="fade-right" style="margin-top: 70px;">СВЯЗАТЬСЯ С НАМИ</h2>
         <div class="partner-card" data-aos="fade-up" style="text-align: center; border-bottom-color: var(--fire-main);">
             <p style="font-size: 22px; color: var(--text-muted); font-family: 'Oswald', sans-serif; margin-bottom: 5px;">Телефон / WhatsApp:</p>
-            <p style="font-size: 38px; font-weight: 800; color: var(--brand-blue); margin-top: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.05);">8 (928) 128-16-04</p>
-            
+            <p style="font-size: 38px; font-weight: 800; color: var(--brand-blue); margin-top: 0;">8 (928) 128-16-04</p>
+
             <p style="font-size: 22px; color: var(--text-muted); font-family: 'Oswald', sans-serif; margin-bottom: 5px; margin-top: 40px;">Telegram:</p>
             <p style="font-size: 34px; font-weight: 800; margin-top: 0;"><a href="https://t.me/ms_serega_g" target="_blank" style="color: var(--brand-light); text-decoration: none;">@ms_serega_g</a></p>
-            
+
             <div style="margin-top: 50px;">
                 <a href="https://vk.com/footballclubfakel161" target="_blank" class="vk-link" style="padding: 18px 50px; font-size: 18px;">Группа ВКонтакте</a>
             </div>
@@ -75,11 +85,13 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, offset: 50 });
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-            document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fakel-theme', theme);
+            const btn = document.getElementById('theme-toggle');
+            if (btn) btn.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
         }
-    </script>
-</body>
-</html>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme
