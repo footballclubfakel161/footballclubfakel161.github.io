@@ -12,9 +12,16 @@
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span>
+        <div class="nav-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png?v=2" alt="ЛФК Факел">
+                <span>ЛФК «ФАКЕЛ»</span>
+            </a>
         </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
     </nav>
 
     <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -22,43 +29,44 @@
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
             <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="Веб 4.html">Матчи</a></li>
+
             <div class="sidebar-title">Клуб</div>
-            <li><a href="about.html" class="active">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
-            <div class="sidebar-title">Турнир</div>
-            <li><a href="Веб 4.html">Матч-центр</a></li>
-            <div class="sidebar-title">Медиа и Партнеры</div>
+            <li><a href="about.html" class="active">О клубе</a></li>
+
+            <div class="sidebar-title">Медиа</div>
             <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
             <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
+
+            <div class="sidebar-title">Сотрудничество</div>
             <li><a href="Веб 5.html">Партнерам</a></li>
         </ul>
     </aside>
 
     <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
+        <img src="img/logo.png?v=2" alt="Логотип ЛФК Факел" class="huge-logo" style="width: 190px;">
         <h1 class="title">О КЛУБЕ</h1>
     </header>
 
     <div class="container">
-        <h2 class="section-title" data-aos="fade-right">ФАКЕЛ — ВКЛЮЧАЙСЯ В ИГРУ!</h2>
+        <h2 class="section-title" data-aos="fade-right">ИСТОРИЯ И ФИЛОСОФИЯ</h2>
         <div class="content-card" data-aos="fade-up">
-            <p style="font-size: 18px; font-weight: 800; color: var(--brand-blue);">Основано в 2024 году донецкими парнями!<br>Дальше — только футбол.</p>
-            
-            <p style="font-size: 16px;">Никаких контрактов. Никаких агентов. Только зеленое поле, мяч и пацаны, которые каждый матч выходят рвать за эмблему на груди.</p>
-            
-            <p style="font-size: 16px;">Для нас футбол — это больше, чем просто игра выходного дня. Это философия братства, самоотдачи и постоянного движения вперед. Мы не признаем авторитетов на поле и готовы биться с любым соперником до последней секунды. Наша команда объединяет людей разных профессий и возрастов, но на газоне мы становимся единым механизмом, заряженным на победу.</p>
-            
-            <p style="font-size: 16px;">Каждый наш матч — это эмоции, жесткая борьба, красивые голы и искренняя радость. Мы играем для себя, для наших преданных болельщиков и ради любви к спорту номер один.</p>
-            
-            <h3 style="color: var(--fire-main); margin-top: 30px;">ЗДЕСЬ ВСЕГДА ЖАРКО:</h3>
-            <ul style="font-size: 16px; font-weight: 600; line-height: 2;">
-                <li><span style="color: var(--brand-light);">⚡</span> <strong>Анонсы матчей</strong> — знай, где включаться и болеть за наших.</li>
-                <li><span style="color: var(--brand-light);">⚡</span> <strong>Прямые эфиры</strong> — смотри игры с любого города.</li>
-                <li><span style="color: var(--brand-light);">⚡</span> <strong>Эмоции с поля</strong> — крутые фото, видео, тяжелая борьба и яркие победы.</li>
-            </ul>
+            <p style="font-size: 18px; font-weight: 700; color: var(--brand-blue);">ЛФК «Факел» — любительский футбольный клуб из Ростова-на-Дону, основанный в 2024 году.</p>
+            <p style="font-size: 16px; font-weight: 500;">Команда объединяет молодых, амбициозных и преданных футболу игроков. Мы выступаем в Высшей лиге EVO и городских турнирах, делая ставку на быстрый, атакующий футбол, дисциплину и командный характер.</p>
+            <p style="font-size: 16px; font-weight: 500;">Для нас футбол — это не просто матчи по выходным, а настоящее спортивное братство. В каждом туре мы выходим на поле с одной целью — биться до финального свистка и зажигать игру!</p>
+        </div>
 
-            <p style="font-size: 16px; margin-top: 30px;"><strong>Домашние стадионы:</strong> Парк Левобережный и Гребной канал.</p>
-            
-            <p style="font-size: 22px; font-weight: 800; color: var(--brand-blue); text-align: center; margin-top: 40px; text-transform: uppercase;">Для успеха нужно зажечь факел!</p>
+        <h2 class="section-title" data-aos="fade-right">КЛУБНЫЕ ФАКТЫ</h2>
+        <div class="content-card" data-aos="fade-up">
+            <div class="info-grid">
+                <div class="info-item"><strong>Год основания</strong> 2024</div>
+                <div class="info-item"><strong>Город</strong> Ростов-на-Дону</div>
+                <div class="info-item"><strong>Турнир</strong> Высшая лига EVO</div>
+                <div class="info-item"><strong>Клубные цвета</strong> Синий, голубой и огненно-оранжевый</div>
+                <div class="info-item"><strong>Домашний стадион</strong> EVO Stadium</div>
+                <div class="info-item"><strong>Капитан</strong> Сергей Гончаренко (№9)</div>
+            </div>
         </div>
     </div>
 
@@ -70,6 +78,19 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, offset: 50 });
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fakel-theme', theme);
+            const btn = document.getElementById('theme-toggle');
+            if (btn) btn.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        applyTheme(localStorage.getItem('fakel-theme') || 'light');
+
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
