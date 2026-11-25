@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | О клубе</title>
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-    <nav class="nav" data-aos="fade-in">
+    <nav class="nav">
         <div class="nav-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span class="hamburger-icon">☰</span>
             </div>
             <a href="index.html" class="nav-brand">
                 <img src="img/logo.png?v=2" alt="ЛФК Факел">
-                <span>ЛФК «ФАКЕЛ»</span>
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
             </a>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
@@ -44,27 +43,26 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
+    <header id="top" class="fade-in" style="padding-bottom: 0;">
         <img src="img/logo.png?v=2" alt="Логотип ЛФК Факел" class="huge-logo" style="width: 190px;">
         <h1 class="title">О КЛУБЕ</h1>
     </header>
 
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-right">ИСТОРИЯ И ФИЛОСОФИЯ</h2>
-        <div class="content-card" data-aos="fade-up">
+    <div class="container fade-in">
+        <h2 class="section-title">ИСТОРИЯ И ФИЛОСОФИЯ</h2>
+        <div class="content-card">
             <p style="font-size: 18px; font-weight: 700; color: var(--brand-blue);">ЛФК «Факел» — любительский футбольный клуб из Ростова-на-Дону, основанный в 2024 году.</p>
             <p style="font-size: 16px; font-weight: 500;">Команда объединяет молодых, амбициозных и преданных футболу игроков. Мы выступаем в Высшей лиге EVO и городских турнирах, делая ставку на быстрый, атакующий футбол, дисциплину и командный характер.</p>
             <p style="font-size: 16px; font-weight: 500;">Для нас футбол — это не просто матчи по выходным, а настоящее спортивное братство. В каждом туре мы выходим на поле с одной целью — биться до финального свистка и зажигать игру!</p>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">КЛУБНЫЕ ФАКТЫ</h2>
-        <div class="content-card" data-aos="fade-up">
+        <h2 class="section-title">КЛУБНЫЕ ФАКТЫ</h2>
+        <div class="content-card">
             <div class="info-grid">
                 <div class="info-item"><strong>Год основания</strong> 2024</div>
                 <div class="info-item"><strong>Город</strong> Ростов-на-Дону</div>
-                <div class="info-item"><strong>Турнир</strong> Высшая лига EVO</div>
+                <div class="info-item"><strong>Турнир</strong> EVO Высшая лига</div>
                 <div class="info-item"><strong>Клубные цвета</strong> Синий, голубой и огненно-оранжевый</div>
-                <div class="info-item"><strong>Домашний стадион</strong> EVO Stadium</div>
                 <div class="info-item"><strong>Капитан</strong> Сергей Гончаренко (№9)</div>
             </div>
         </div>
@@ -75,10 +73,7 @@
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 50 });
-
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('fakel-theme', theme);
