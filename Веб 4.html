@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Матчи</title>
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-    <nav class="nav" data-aos="fade-in">
+    <nav class="nav">
         <div class="nav-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span class="hamburger-icon">☰</span>
             </div>
             <a href="index.html" class="nav-brand">
                 <img src="img/logo.png?v=2" alt="ЛФК Факел">
-                <span>ЛФК «ФАКЕЛ»</span>
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
             </a>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
@@ -44,14 +43,13 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
+    <header id="top" class="fade-in" style="padding-bottom: 0;">
         <h1 class="title">МАТЧИ</h1>
     </header>
 
-    <div class="container">
-        <!-- СТАТИСТИКА ВЫСШЕЙ ЛИГИ -->
-        <h2 class="section-title" data-aos="fade-right">СТАТИСТИКА ЛИГИ • СЕЗОН 2026/27</h2>
-        <div class="match-card" data-aos="fade-up" style="overflow-x: auto;">
+    <div class="container fade-in">
+        <h2 class="section-title">СТАТИСТИКА EVO ВЫСШЕЙ ЛИГИ • 2026/27</h2>
+        <div class="match-card" style="overflow-x: auto;">
             <div class="stat-tabs">
                 <button class="stat-tab active" onclick="showStats('goals', this)">Голы</button>
                 <button class="stat-tab" onclick="showStats('assists', this)">Пасы</button>
@@ -60,8 +58,8 @@
             <table class="standings-table" id="league-stats-table"></table>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЙ МАТЧ</h2>
-        <div class="match-card" data-aos="fade-up">
+        <h2 class="section-title">ПОСЛЕДНИЙ МАТЧ</h2>
+        <div class="match-card">
             <div class="match-header" id="latest-header">Загрузка...</div>
             <div class="match-scoreboard">
                 <div class="team" id="team1-name">-</div>
@@ -75,13 +73,12 @@
             </div>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">БЛИЖАЙШИЕ МАТЧИ</h2>
-        <div class="match-card" data-aos="fade-up" style="overflow-x: auto;">
+        <h2 class="section-title">БЛИЖАЙШИЕ МАТЧИ</h2>
+        <div class="match-card" style="overflow-x: auto;">
             <table class="standings-table" id="upcoming-table">
                 <tr>
-                    <th style="text-align:left; width: 35%;">Дата</th>
+                    <th style="text-align:left; width: 42%;">Дата</th>
                     <th style="text-align:left;">Матч</th>
-                    <th style="text-align:left;">Стадион</th>
                 </tr>
             </table>
         </div>
@@ -92,10 +89,7 @@
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 50 });
-
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('fakel-theme', theme);
@@ -114,7 +108,6 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Статистика Высшей лиги (Сезон 2026/27)
         const leagueStats = {
             goals: {
                 label: "Голы",
@@ -158,3 +151,75 @@
                     { pos: 7, name: "Болдин Роман", role: "Нападающий", val: 9 },
                     { pos: 8, name: "Кислов Андрей", role: "Полузащитник", val: 9 },
                     { pos: 9, name: "Гончаренко Сергей", role: "Нападающий", val: 9, fakel: true },
+                    { pos: 10, name: "Петров Игнат", role: "Защитник", val: 8 }
+                ]
+            }
+        };
+
+        function showStats(type, btn) {
+            if (btn) {
+                document.querySelectorAll('.stat-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            const data = leagueStats[type];
+            const table = document.getElementById('league-stats-table');
+            let html = `<tr>
+                <th style="width: 45px;">#</th>
+                <th class="team-cell">Игрок</th>
+                <th style="text-align:left;">Амплуа</th>
+                <th style="width: 90px;">${data.label}</th>
+            </tr>`;
+            data.rows.forEach(r => {
+                const cls = r.fakel ? 'class="fakel-row"' : '';
+                html += `<tr ${cls}>
+                    <td>${r.pos}</td>
+                    <td class="team-cell">${r.name}</td>
+                    <td style="text-align:left; color: var(--text-muted);">${r.role}</td>
+                    <td><span class="stat-badge">${r.val}</span></td>
+                </tr>`;
+            });
+            table.innerHTML = html;
+        }
+        showStats('goals');
+
+        const matchData = {
+            latest: {
+                match_info: "5-й тур | Высшая лига | 03.10.2026",
+                team1: "Виртуоз",
+                score: "5 : 7",
+                team2: "Факел",
+                events1: [{ event: "Игроки Виртуоза (5 голов)" }],
+                events2: [
+                    { event: "С. Гончаренко (⚽⚽⚽)" },
+                    { event: "В. Тимонин (⚽⚽⚽)" },
+                    { event: "Д. Стёпкин (⚽)" }
+                ]
+            },
+            upcoming: [
+                { date: "13 марта 2027 (8-й тур)", title: "Факел — ФК Батайск" },
+                { date: "20 марта 2027 (9-й тур)", title: "АКД — Факел" },
+                { date: "27 марта 2027 (10-й тур)", title: "Факел — FC Soroka" },
+                { date: "03 апреля 2027 (11-й тур)", title: "ZaDrots — Факел" },
+                { date: "10 апреля 2027 (12-й тур)", title: "Факел — Виртуоз" }
+            ]
+        };
+
+        document.getElementById('latest-header').innerHTML = `<span>${matchData.latest.match_info}</span>`;
+        document.getElementById('team1-name').textContent = matchData.latest.team1;
+        document.getElementById('match-score').textContent = matchData.latest.score;
+        document.getElementById('team2-name').textContent = matchData.latest.team2;
+        const events1 = document.getElementById('team1-events');
+        matchData.latest.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
+        const events2 = document.getElementById('team2-events');
+        matchData.latest.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
+
+        const upTable = document.getElementById('upcoming-table');
+        matchData.upcoming.forEach(match => {
+            upTable.innerHTML += `<tr>
+                <td style="text-align: left;">${match.date}</td>
+                <td style="text-align: left; font-weight: 800; color: var(--brand-blue);">${match.title}</td>
+            </tr>`;
+        });
+    </script>
+</body>
+</html>
