@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Партнерам</title>
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-    <nav class="nav" data-aos="fade-in">
+    <nav class="nav">
         <div class="nav-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span class="hamburger-icon">☰</span>
             </div>
             <a href="index.html" class="nav-brand">
                 <img src="img/logo.png?v=2" alt="ЛФК Факел">
-                <span>ЛФК «ФАКЕЛ»</span>
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
             </a>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
@@ -44,13 +43,13 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
+    <header id="top" class="fade-in" style="padding-bottom: 0;">
         <h1 class="title">ПАРТНЕРСТВО</h1>
     </header>
 
-    <div class="container">
-        <h2 class="section-title" data-aos="fade-right">ОТКРЫТЫ К СОТРУДНИЧЕСТВУ</h2>
-        <div class="partner-card" data-aos="fade-up">
+    <div class="container fade-in">
+        <h2 class="section-title">ОТКРЫТЫ К СОТРУДНИЧЕСТВУ</h2>
+        <div class="partner-card">
             <p style="font-size: 18px; font-weight: 700; color: var(--brand-blue);">ЛФК «Факел» — это яркая и развивающаяся команда. Мы всегда рады новым друзьям, спонсорам и партнерам!</p>
             <p style="font-size: 16px; font-weight: 500;">Поддерживая нас, вы не просто размещаете рекламу, а помогаете развивать честный любительский футбол в Ростове-на-Дону. Мы гибкие, ценим поддержку и всегда готовы обсуждать абсолютно любые форматы взаимодействия.</p>
 
@@ -63,8 +62,8 @@
             <p style="font-size: 16px; font-weight: 700; margin-top: 20px; color: var(--brand-blue);">Пишите, звоните — мы готовы к любым переговорам и обязательно договоримся!</p>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right" style="margin-top: 70px;">СВЯЗАТЬСЯ С НАМИ</h2>
-        <div class="partner-card" data-aos="fade-up" style="text-align: center; border-bottom-color: var(--fire-main);">
+        <h2 class="section-title" style="margin-top: 60px;">СВЯЗАТЬСЯ С НАМИ</h2>
+        <div class="partner-card" style="text-align: center; border-bottom-color: var(--fire-main);">
             <p style="font-size: 22px; color: var(--text-muted); font-family: 'Oswald', sans-serif; margin-bottom: 5px;">Телефон / WhatsApp:</p>
             <p style="font-size: 38px; font-weight: 800; color: var(--brand-blue); margin-top: 0;">8 (928) 128-16-04</p>
 
@@ -82,10 +81,7 @@
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 50 });
-
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('fakel-theme', theme);
@@ -94,4 +90,15 @@
         }
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme') || 'light';
-            applyTheme
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        applyTheme(localStorage.getItem('fakel-theme') || 'light');
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+            document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
+        }
+    </script>
+</body>
+</html>
