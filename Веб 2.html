@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Команда</title>
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-    <nav class="nav" data-aos="fade-in">
+    <nav class="nav">
         <div class="nav-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span class="hamburger-icon">☰</span>
             </div>
             <a href="index.html" class="nav-brand">
                 <img src="img/logo.png?v=2" alt="ЛФК Факел">
-                <span>ЛФК «ФАКЕЛ»</span>
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
             </a>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
@@ -44,11 +43,11 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
+    <header id="top" class="fade-in" style="padding-bottom: 0;">
         <h1 class="title">СОСТАВ КОМАНДЫ</h1>
     </header>
 
-    <div class="container" id="roster-container">
+    <div class="container fade-in" id="roster-container">
         <p style="text-align: center; color: var(--brand-blue); font-weight: bold; font-size: 20px;">Загрузка состава...</p>
     </div>
 
@@ -57,10 +56,7 @@
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 50 });
-
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('fakel-theme', theme);
@@ -79,7 +75,6 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Обновлённый состав и статистика за все сезоны
         const playersList = [
             { name: "Лазарев Андрей", number: "1", category: "Вратари", image: "img/andrey.jpg", is_captain: false, birthdate: "05.04.2005", physique: "180 см / 85 кг", foot: "Правая", debut: "Март 2025", stats: "1 сухой матч" },
             { name: "Гончаренко Артём", number: "2", category: "Защитники", image: "img/artem.jpg", is_captain: false, birthdate: "19.02.2005", physique: "182 см / 73 кг", foot: "Правая", debut: "С основания клуба", stats: "12 голов, 3 голевые передачи" },
@@ -103,13 +98,13 @@
             categories.forEach(category => {
                 const players = list.filter(p => p.category === category);
                 if (players.length > 0) {
-                    html += `<h2 class="category-title" data-aos="fade-right">${category.toUpperCase()}</h2>`;
+                    html += `<h2 class="category-title">${category.toUpperCase()}</h2>`;
                     players.forEach(player => {
                         const captainBadge = player.is_captain ? `<span class="captain-badge">Капитан</span>` : '';
                         const roleDisplay = category === "Вратари" ? "Вратарь" : category === "Защитники" ? "Защитник" : category === "Полузащитники" ? "Полузащитник" : "Нападающий";
 
                         html += `
-                        <article class="card-detail" data-aos="fade-up">
+                        <article class="card-detail">
                             <img src="${player.image}" onerror="this.src='img/logo.png?v=2'" alt="${player.name}">
                             <div class="card-content">
                                 <h2 class="card-name">${player.name} ${captainBadge} <span class="number">№${player.number}</span></h2>
