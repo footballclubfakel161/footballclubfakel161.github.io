@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ЛФК «Факел» | Матч-центр</title>
+    <title>ЛФК «Факел» | Матчи</title>
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -12,9 +12,16 @@
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span>
+        <div class="nav-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png?v=2" alt="ЛФК Факел">
+                <span>ЛФК «ФАКЕЛ»</span>
+            </a>
         </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
     </nav>
 
     <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -22,37 +29,35 @@
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
             <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="Веб 4.html" class="active">Матчи</a></li>
+
             <div class="sidebar-title">Клуб</div>
-            <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
-            <div class="sidebar-title">Турнир</div>
-            <li><a href="Веб 4.html" class="active">Матч-центр</a></li>
-            <div class="sidebar-title">Медиа и Партнеры</div>
+            <li><a href="about.html">О клубе</a></li>
+
+            <div class="sidebar-title">Медиа</div>
             <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
             <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
+
+            <div class="sidebar-title">Сотрудничество</div>
             <li><a href="Веб 5.html">Партнерам</a></li>
         </ul>
     </aside>
 
     <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
-        <h1 class="title">МАТЧ-ЦЕНТР</h1>
+        <h1 class="title">МАТЧИ</h1>
     </header>
 
     <div class="container">
-        <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА</h2>
+        <!-- СТАТИСТИКА ВЫСШЕЙ ЛИГИ -->
+        <h2 class="section-title" data-aos="fade-right">СТАТИСТИКА ЛИГИ • СЕЗОН 2026/27</h2>
         <div class="match-card" data-aos="fade-up" style="overflow-x: auto;">
-            <table class="standings-table" id="standings-table">
-                <tr>
-                    <th style="width: 40px;">#</th>
-                    <th class="team-cell">Команда</th>
-                    <th title="Игры">И</th>
-                    <th title="Победы">В</th>
-                    <th title="Ничьи">Н</th>
-                    <th title="Поражения">П</th>
-                    <th title="Разница голов">РГ</th>
-                    <th title="Очки">Очки</th>
-                </tr>
-            </table>
+            <div class="stat-tabs">
+                <button class="stat-tab active" onclick="showStats('goals', this)">Голы</button>
+                <button class="stat-tab" onclick="showStats('assists', this)">Пасы</button>
+                <button class="stat-tab" onclick="showStats('ga', this)">Гол + Пас</button>
+            </div>
+            <table class="standings-table" id="league-stats-table"></table>
         </div>
 
         <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЙ МАТЧ</h2>
@@ -71,11 +76,12 @@
         </div>
 
         <h2 class="section-title" data-aos="fade-right">БЛИЖАЙШИЕ МАТЧИ</h2>
-        <div class="match-card" data-aos="fade-up">
+        <div class="match-card" data-aos="fade-up" style="overflow-x: auto;">
             <table class="standings-table" id="upcoming-table">
                 <tr>
-                    <th style="text-align:left; width: 40%;">Дата</th>
+                    <th style="text-align:left; width: 35%;">Дата</th>
                     <th style="text-align:left;">Матч</th>
+                    <th style="text-align:left;">Стадион</th>
                 </tr>
             </table>
         </div>
@@ -89,69 +95,66 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, offset: 50 });
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fakel-theme', theme);
+            const btn = document.getElementById('theme-toggle');
+            if (btn) btn.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        applyTheme(localStorage.getItem('fakel-theme') || 'light');
+
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Вшитые данные для мгновенного обновления
-        const matchData = {
-            standings: [
-                { "position": 1, "name": "FC Soroka", "games": 5, "wins": 3, "draws": 1, "losses": 1, "goals_diff": "12", "points": 10 },
-                { "position": 2, "name": "ZaDrots", "games": 5, "wins": 3, "draws": 1, "losses": 1, "goals_diff": "7", "points": 10 },
-                { "position": 3, "name": "АКД", "games": 5, "wins": 3, "draws": 0, "losses": 2, "goals_diff": "-5", "points": 9 },
-                { "position": 4, "name": "The Smash", "games": 5, "wins": 3, "draws": 0, "losses": 2, "goals_diff": "8", "points": 9 },
-                { "position": 5, "name": "ФК Батайск", "games": 5, "wins": 2, "draws": 1, "losses": 2, "goals_diff": "-6", "points": 7 },
-                { "position": 6, "name": "Факел", "games": 5, "wins": 2, "draws": 0, "losses": 3, "goals_diff": "-2", "points": 6 },
-                { "position": 7, "name": "ФК Рассвет", "games": 5, "wins": 1, "draws": 1, "losses": 3, "goals_diff": "-7", "points": 4 },
-                { "position": 8, "name": "Виртуоз", "games": 5, "wins": 1, "draws": 0, "losses": 4, "goals_diff": "-7", "points": 3 }
-            ],
-            latest: {
-                "match_info": "5-й тур | Высшая лига | 03.10.2026",
-                "team1": "Виртуоз",
-                "score": "5 : 7",
-                "team2": "Факел",
-                "events1": [{ "event": "Игроки Виртуоза (5 голов)" }],
-                "events2": [
-                    { "event": "С. Гончаренко (⚽⚽⚽)" },
-                    { "event": "В. Тимонин (⚽⚽⚽)" },
-                    { "event": "Д. Степкин (⚽)" }
+        // Статистика Высшей лиги (Сезон 2026/27)
+        const leagueStats = {
+            goals: {
+                label: "Голы",
+                rows: [
+                    { pos: 1, name: "Очередько Владислав", role: "Нападающий", val: 12 },
+                    { pos: 2, name: "Тимонин Валерий", role: "Нападающий", val: 11, fakel: true },
+                    { pos: 3, name: "Тепляков Даниил", role: "Универсал", val: 8 },
+                    { pos: 4, name: "Конюх Владислав", role: "Нападающий", val: 8 },
+                    { pos: 5, name: "Карпов Сергей", role: "Универсал", val: 7 },
+                    { pos: 6, name: "Самсонов Артём", role: "Полузащитник", val: 6 },
+                    { pos: 7, name: "Гончаренко Сергей", role: "Нападающий", val: 6, fakel: true },
+                    { pos: 8, name: "Востродымов Артем", role: "Нападающий", val: 6 },
+                    { pos: 9, name: "Самойлов Денис", role: "Нападающий", val: 5 },
+                    { pos: 10, name: "Гавель Дмитрий", role: "Нападающий", val: 4 }
                 ]
             },
-            upcoming: [
-                { "date": "10 октября (6 тур)", "title": "Факел — ФК Рассвет" },
-                { "date": "17 октября (7 тур)", "title": "The Smash — Факел" },
-                { "date": "24 октября (8 тур)", "title": "Факел — ФК Батайск" }
-            ]
-        };
-
-        // Отрисовка таблицы
-        const table = document.getElementById('standings-table');
-        matchData.standings.forEach(team => {
-            const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
-            table.innerHTML += `<tr ${isFakel}>
-                <td>${team.position}</td><td class="team-cell">${team.name}</td>
-                <td>${team.games}</td><td>${team.wins}</td><td>${team.draws}</td>
-                <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
-            </tr>`;
-        });
-
-        // Отрисовка последнего матча
-        document.getElementById('latest-header').innerHTML = `<span>${matchData.latest.match_info}</span>`;
-        document.getElementById('team1-name').textContent = matchData.latest.team1;
-        document.getElementById('match-score').textContent = matchData.latest.score;
-        document.getElementById('team2-name').textContent = matchData.latest.team2;
-        const events1 = document.getElementById('team1-events');
-        matchData.latest.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
-        const events2 = document.getElementById('team2-events');
-        matchData.latest.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
-
-        // Отрисовка будущих матчей (Только Факел)
-        const upTable = document.getElementById('upcoming-table');
-        matchData.upcoming.forEach(match => {
-            upTable.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left; font-weight: 800; color: var(--brand-blue);">${match.title}</td></tr>`;
-        });
-    </script>
-</body>
-</html>
+            assists: {
+                label: "Пасы",
+                rows: [
+                    { pos: 1, name: "Болдин Роман", role: "Нападающий", val: 6 },
+                    { pos: 2, name: "Петров Игнат", role: "Защитник", val: 5 },
+                    { pos: 3, name: "Кузнецов Владимир", role: "Защитник", val: 5 },
+                    { pos: 4, name: "Сушков Данила", role: "Полузащитник", val: 5 },
+                    { pos: 5, name: "Кислов Андрей", role: "Полузащитник", val: 5 },
+                    { pos: 6, name: "Мавков Арсений", role: "Полузащитник", val: 5 },
+                    { pos: 7, name: "Самсонов Артём", role: "Полузащитник", val: 4 },
+                    { pos: 8, name: "Тепляков Даниил", role: "Универсал", val: 4 },
+                    { pos: 9, name: "Очередько Владислав", role: "Нападающий", val: 4 },
+                    { pos: 10, name: "Кракашов Глеб", role: "Полузащитник", val: 4 }
+                ]
+            },
+            ga: {
+                label: "Г+П",
+                rows: [
+                    { pos: 1, name: "Очередько Владислав", role: "Нападающий", val: 16 },
+                    { pos: 2, name: "Тимонин Валерий", role: "Нападающий", val: 14, fakel: true },
+                    { pos: 3, name: "Тепляков Даниил", role: "Универсал", val: 12 },
+                    { pos: 4, name: "Конюх Владислав", role: "Нападающий", val: 11 },
+                    { pos: 5, name: "Самсонов Артём", role: "Полузащитник", val: 10 },
+                    { pos: 6, name: "Карпов Сергей", role: "Универсал", val: 9 },
+                    { pos: 7, name: "Болдин Роман", role: "Нападающий", val: 9 },
+                    { pos: 8, name: "Кислов Андрей", role: "Полузащитник", val: 9 },
+                    { pos: 9, name: "Гончаренко Сергей", role: "Нападающий", val: 9, fakel: true },
