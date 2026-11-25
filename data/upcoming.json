@@ -1,7 +1,9 @@
 {
   "matches": [
-    { "date": "10 октября (6 тур)", "title": "Факел — ФК Рассвет" },
-    { "date": "17 октября (7 тур)", "title": "The Smash — Факел" },
-    { "date": "17 октября (7 тур)", "title": "ZaDrots — FC Soroka" }
+    { "date": "13 марта 2027 (8-й тур)", "title": "Факел — ФК Батайск", "stadium": "EVO Stadium" },
+    { "date": "20 марта 2027 (9-й тур)", "title": "АКД — Факел", "stadium": "EVO Stadium" },
+    { "date": "27 марта 2027 (10-й тур)", "title": "Факел — FC Soroka", "stadium": "EVO Stadium" },
+    { "date": "03 апреля 2027 (11-й тур)", "title": "ZaDrots — Факел", "stadium": "EVO Stadium" },
+    { "date": "10 апреля 2027 (12-й тур)", "title": "Факел — Виртуоз", "stadium": "EVO Stadium" }
   ]
 }
