@@ -6,21 +6,20 @@
     <title>ЛФК «Факел» | Официальный сайт</title>
     <meta name="description" content="Официальный сайт ЛФК «Факел» (Ростов-на-Дону). Новости клуба, турнирная таблица, состав команды и расписание матчей.">
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
     <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 </head>
 <body>
 
-    <nav class="nav" data-aos="fade-in">
+    <nav class="nav">
         <div class="nav-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span class="hamburger-icon">☰</span>
             </div>
             <a href="index.html" class="nav-brand">
                 <img src="img/logo.png?v=2" alt="ЛФК Факел">
-                <span>ЛФК «ФАКЕЛ»</span>
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
             </a>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
@@ -46,16 +45,15 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="zoom-in">
+    <header id="top" class="fade-in">
         <img src="img/logo.png?v=2" alt="Логотип ЛФК Факел" class="huge-logo">
         <h1 class="title">ЛФК <span>«ФАКЕЛ»</span></h1>
         <p class="subtitle">РОСТОВ-НА-ДОНУ • ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
 
-    <div class="container">
-        <!-- КРУПНАЯ ТУРНИРНАЯ ТАБЛИЦА ПОД ЭМБЛЕМОЙ -->
-        <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА • ВЫСШАЯ ЛИГА</h2>
-        <div class="match-card" data-aos="fade-up" style="overflow-x: auto; padding: 28px;">
+    <div class="container fade-in">
+        <h2 class="section-title">ТУРНИРНАЯ ТАБЛИЦА • EVO ВЫСШАЯ ЛИГА</h2>
+        <div class="match-card" style="overflow-x: auto; padding: 28px;">
             <table class="standings-table" id="standings-table">
                 <tr>
                     <th style="width: 45px;">#</th>
@@ -73,14 +71,14 @@
         <div id="vk-error" style="display:none; background: #ffebee; color: #c62828; padding: 20px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; border: 2px solid #ef5350;"></div>
 
         <div class="news-feed-section">
-            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 40px;">СВЕЖИЕ НОВОСТИ</h2>
+            <h2 class="section-title" style="justify-content: center; margin-bottom: 40px;">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
                 <p style="text-align: center; color: var(--brand-blue); font-weight: 800; font-size: 20px;">ЗАГРУЗКА ИНФОРМАЦИИ...</p>
             </div>
         </div>
     </div>
 
-    <div id="archive-section" style="display: none; max-width: 1050px; margin: 0 auto; padding: 0 10px;">
+    <div id="archive-section" style="display: none; max-width: 1050px; width: 100%; margin: 0 auto 40px; padding: 0 10px;">
         <h2 class="archive-title">АРХИВ ЗАПИСЕЙ</h2>
         <div class="archive-slider" id="archive-feed"></div>
     </div>
@@ -90,11 +88,7 @@
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 50 });
-
-        // Переключение светлой / тёмной темы
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('fakel-theme', theme);
@@ -113,7 +107,6 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Актуальная турнирная таблица (после 7 туров)
         const standingsData = [
             { position: 1, name: "FC Soroka", games: 7, wins: 5, draws: 1, losses: 1, goals_diff: "16", points: 16 },
             { position: 2, name: "АКД", games: 7, wins: 5, draws: 0, losses: 2, goals_diff: "2", points: 15 },
@@ -220,7 +213,7 @@
 
                 if (post.type === 'vk') {
                     mainContainer.innerHTML += `
-                        <a href="${post.link}" target="_blank" class="cms-news-card clickable-card" data-aos="fade-up">
+                        <a href="${post.link}" target="_blank" class="cms-news-card clickable-card">
                             ${imgHtml}
                             <span class="cms-news-date">${post.dateStr}</span>
                             <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
@@ -230,7 +223,7 @@
                     `;
                 } else {
                     mainContainer.innerHTML += `
-                        <article class="cms-news-card" data-aos="fade-up">
+                        <article class="cms-news-card">
                             ${imgHtml}
                             <span class="cms-news-date">${post.dateStr}</span>
                             <h3 class="cms-news-title">${post.title}</h3>
