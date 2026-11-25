@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: Sergey285830/fakel-site
+  repo: repo: footballclubfakel161/footballclubfakel161.github.io
   branch: main
-  base_url: "https://footballclubfakel161.vercel.app/api"
+  site_url: https://footballclubfakel161.github.io
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
