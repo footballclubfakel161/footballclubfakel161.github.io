@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛФК «Факел» | Статистика</title>
+    <link rel="icon" type="image/png" href="img/logo.png?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png?v=2" alt="ЛФК Факел">
+                <span>ЛФК <em>«ФАКЕЛ»</em></span>
+            </a>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
+    </nav>
+
+    <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="Веб 4.html">Матчи</a></li>
+            <li><a href="stats.html" class="active">Статистика</a></li>
+
+            <div class="sidebar-title">Клуб</div>
+            <li><a href="Веб 2.html">Команда</a></li>
+            <li><a href="about.html">О клубе</a></li>
+
+            <div class="sidebar-title">Медиа</div>
+            <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
+            <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
+
+            <div class="sidebar-title">Сотрудничество</div>
+            <li><a href="Веб 5.html">Партнерам</a></li>
+        </ul>
+    </aside>
+
+    <header id="top" class="fade-in" style="padding-bottom: 0;">
+        <h1 class="title">СТАТИСТИКА</h1>
+    </header>
+
+    <div class="container fade-in">
+        <h2 class="section-title">EVO ВЫСШАЯ ЛИГА • СЕЗОН 2026/27</h2>
+        <div class="match-card" style="overflow-x: auto;">
+            <div class="stat-tabs">
+                <button class="stat-tab active" onclick="showStats('goals', this)">Голы</button>
+                <button class="stat-tab" onclick="showStats('assists', this)">Пасы</button>
+                <button class="stat-tab" onclick="showStats('ga', this)">Гол + Пас</button>
+            </div>
+            <table class="standings-table" id="league-stats-table"></table>
+        </div>
+    </div>
+
+    <footer>
+        <span>ВРЕМЯ ЗАЖЕЧЬ ФАКЕЛ!</span>
+        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
+    </footer>
+
+    <script>
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fakel-theme', theme);
+            const btn = document.getElementById('theme-toggle');
+            if (btn) btn.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        applyTheme(localStorage.getItem('fakel-theme') || 'light');
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+            document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
+        }
+
+        const leagueStats = {
+            goals: {
+                label: "Голы",
+                rows: [
+                    { pos: 1, name: "Очередько Владислав", team: "АКД", role: "Нападающий", val: 12 },
+                    { pos: 2, name: "Тимонин Валерий", team: "Факел", role: "Нападающий", val: 11, fakel: true },
+                    { pos: 3, name: "Тепляков Даниил", team: "The Smash", role: "Универсал", val: 8 },
+                    { pos: 4, name: "Конюх Владислав", team: "The Smash", role: "Нападающий", val: 8 },
+                    { pos: 5, name: "Карпов Сергей", team: "ФК Рассвет", role: "Универсал", val: 7 },
+                    { pos: 6, name: "Самсонов Артём", team: "ФК Рассвет", role: "Полузащитник", val: 6 },
+                    { pos: 7, name: "Гончаренко Сергей", team: "Факел", role: "Нападающий", val: 6, fakel: true },
+                    { pos: 8, name: "Востродымов Артем", team: "FC Soroka", role: "Нападающий", val: 6 },
+                    { pos: 9, name: "Самойлов Денис", team: "ФК Рассвет", role: "Нападающий", val: 5 },
+                    { pos: 10, name: "Гавель Дмитрий", team: "ФК Батайск", role: "Нападающий", val: 4 }
+                ]
+            },
+            assists: {
+                label: "Пасы",
+                rows: [
+                    { pos: 1, name: "Болдин Роман", team: "ZaDrots", role: "Нападающий", val: 6 },
+                    { pos: 2, name: "Петров Игнат", team: "ФК Батайск", role: "Защитник", val: 5 },
+                    { pos: 3, name: "Кузнецов Владимир", team: "ФК Рассвет", role: "Защитник", val: 5 },
+                    { pos: 4, name: "Сушков Данила", team: "АКД", role: "Полузащитник", val: 5 },
+                    { pos: 5, name: "Кислов Андрей", team: "ФК Рассвет", role: "Полузащитник", val: 5 },
+                    { pos: 6, name: "Мавков Арсений", team: "FC Soroka", role: "Полузащитник", val: 5 },
+                    { pos: 7, name: "Самсонов Артём", team: "ФК Рассвет", role: "Полузащитник", val: 4 },
+                    { pos: 8, name: "Тепляков Даниил", team: "The Smash", role: "Универсал", val: 4 },
+                    { pos: 9, name: "Очередько Владислав", team: "АКД", role: "Нападающий", val: 4 },
+                    { pos: 10, name: "Кракашов Глеб", team: "FC Soroka", role: "Полузащитник", val: 4 }
+                ]
+            },
+            ga: {
+                label: "Г+П",
+                rows: [
+                    { pos: 1, name: "Очередько Владислав", team: "АКД", role: "Нападающий", val: 16 },
+                    { pos: 2, name: "Тимонин Валерий", team: "Факел", role: "Нападающий", val: 14, fakel: true },
+                    { pos: 3, name: "Тепляков Даниил", team: "The Smash", role: "Универсал", val: 12 },
+                    { pos: 4, name: "Конюх Владислав", team: "The Smash", role: "Нападающий", val: 11 },
+                    { pos: 5, name: "Самсонов Артём", team: "ФК Рассвет", role: "Полузащитник", val: 10 },
+                    { pos: 6, name: "Карпов Сергей", team: "ФК Рассвет", role: "Универсал", val: 9 },
+                    { pos: 7, name: "Болдин Роман", team: "ZaDrots", role: "Нападающий", val: 9 },
+                    { pos: 8, name: "Кислов Андрей", team: "ФК Рассвет", role: "Полузащитник", val: 9 },
+                    { pos: 9, name: "Гончаренко Сергей", team: "Факел", role: "Нападающий", val: 9, fakel: true },
+                    { pos: 10, name: "Петров Игнат", team: "ФК Батайск", role: "Защитник", val: 8 }
+                ]
+            }
+        };
+
+        function showStats(type, btn) {
+            if (btn) {
+                document.querySelectorAll('.stat-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            const data = leagueStats[type];
+            const table = document.getElementById('league-stats-table');
+            let html = `<tr>
+                <th style="width: 45px;">#</th>
+                <th class="team-cell">Игрок</th>
+                <th style="text-align:left;">Команда</th>
+                <th style="text-align:left;">Амплуа</th>
+                <th style="width: 90px;">${data.label}</th>
+            </tr>`;
+            data.rows.forEach(r => {
+                const cls = r.fakel ? 'class="fakel-row"' : '';
+                html += `<tr ${cls}>
+                    <td>${r.pos}</td>
+                    <td class="team-cell">${r.name}</td>
+                    <td style="text-align:left; font-weight: 700;">${r.team}</td>
+                    <td style="text-align:left; color: var(--text-muted);">${r.role}</td>
+                    <td><span class="stat-badge">${r.val}</span></td>
+                </tr>`;
+            });
+            table.innerHTML = html;
+        }
+        showStats('goals');
+    </script>
+</body>
+</html>
