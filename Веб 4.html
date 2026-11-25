@@ -29,6 +29,7 @@
         <ul class="sidebar-menu">
             <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
             <li><a href="Веб 4.html" class="active">Матчи</a></li>
+            <li><a href="stats.html">Статистика</a></li>
 
             <div class="sidebar-title">Клуб</div>
             <li><a href="Веб 2.html">Команда</a></li>
@@ -48,16 +49,6 @@
     </header>
 
     <div class="container fade-in">
-        <h2 class="section-title">СТАТИСТИКА EVO ВЫСШЕЙ ЛИГИ • 2026/27</h2>
-        <div class="match-card" style="overflow-x: auto;">
-            <div class="stat-tabs">
-                <button class="stat-tab active" onclick="showStats('goals', this)">Голы</button>
-                <button class="stat-tab" onclick="showStats('assists', this)">Пасы</button>
-                <button class="stat-tab" onclick="showStats('ga', this)">Гол + Пас</button>
-            </div>
-            <table class="standings-table" id="league-stats-table"></table>
-        </div>
-
         <h2 class="section-title">ПОСЛЕДНИЙ МАТЧ</h2>
         <div class="match-card">
             <div class="match-header" id="latest-header">Загрузка...</div>
@@ -108,91 +99,24 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        const leagueStats = {
-            goals: {
-                label: "Голы",
-                rows: [
-                    { pos: 1, name: "Очередько Владислав", role: "Нападающий", val: 12 },
-                    { pos: 2, name: "Тимонин Валерий", role: "Нападающий", val: 11, fakel: true },
-                    { pos: 3, name: "Тепляков Даниил", role: "Универсал", val: 8 },
-                    { pos: 4, name: "Конюх Владислав", role: "Нападающий", val: 8 },
-                    { pos: 5, name: "Карпов Сергей", role: "Универсал", val: 7 },
-                    { pos: 6, name: "Самсонов Артём", role: "Полузащитник", val: 6 },
-                    { pos: 7, name: "Гончаренко Сергей", role: "Нападающий", val: 6, fakel: true },
-                    { pos: 8, name: "Востродымов Артем", role: "Нападающий", val: 6 },
-                    { pos: 9, name: "Самойлов Денис", role: "Нападающий", val: 5 },
-                    { pos: 10, name: "Гавель Дмитрий", role: "Нападающий", val: 4 }
-                ]
-            },
-            assists: {
-                label: "Пасы",
-                rows: [
-                    { pos: 1, name: "Болдин Роман", role: "Нападающий", val: 6 },
-                    { pos: 2, name: "Петров Игнат", role: "Защитник", val: 5 },
-                    { pos: 3, name: "Кузнецов Владимир", role: "Защитник", val: 5 },
-                    { pos: 4, name: "Сушков Данила", role: "Полузащитник", val: 5 },
-                    { pos: 5, name: "Кислов Андрей", role: "Полузащитник", val: 5 },
-                    { pos: 6, name: "Мавков Арсений", role: "Полузащитник", val: 5 },
-                    { pos: 7, name: "Самсонов Артём", role: "Полузащитник", val: 4 },
-                    { pos: 8, name: "Тепляков Даниил", role: "Универсал", val: 4 },
-                    { pos: 9, name: "Очередько Владислав", role: "Нападающий", val: 4 },
-                    { pos: 10, name: "Кракашов Глеб", role: "Полузащитник", val: 4 }
-                ]
-            },
-            ga: {
-                label: "Г+П",
-                rows: [
-                    { pos: 1, name: "Очередько Владислав", role: "Нападающий", val: 16 },
-                    { pos: 2, name: "Тимонин Валерий", role: "Нападающий", val: 14, fakel: true },
-                    { pos: 3, name: "Тепляков Даниил", role: "Универсал", val: 12 },
-                    { pos: 4, name: "Конюх Владислав", role: "Нападающий", val: 11 },
-                    { pos: 5, name: "Самсонов Артём", role: "Полузащитник", val: 10 },
-                    { pos: 6, name: "Карпов Сергей", role: "Универсал", val: 9 },
-                    { pos: 7, name: "Болдин Роман", role: "Нападающий", val: 9 },
-                    { pos: 8, name: "Кислов Андрей", role: "Полузащитник", val: 9 },
-                    { pos: 9, name: "Гончаренко Сергей", role: "Нападающий", val: 9, fakel: true },
-                    { pos: 10, name: "Петров Игнат", role: "Защитник", val: 8 }
-                ]
-            }
-        };
-
-        function showStats(type, btn) {
-            if (btn) {
-                document.querySelectorAll('.stat-tab').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            const data = leagueStats[type];
-            const table = document.getElementById('league-stats-table');
-            let html = `<tr>
-                <th style="width: 45px;">#</th>
-                <th class="team-cell">Игрок</th>
-                <th style="text-align:left;">Амплуа</th>
-                <th style="width: 90px;">${data.label}</th>
-            </tr>`;
-            data.rows.forEach(r => {
-                const cls = r.fakel ? 'class="fakel-row"' : '';
-                html += `<tr ${cls}>
-                    <td>${r.pos}</td>
-                    <td class="team-cell">${r.name}</td>
-                    <td style="text-align:left; color: var(--text-muted);">${r.role}</td>
-                    <td><span class="stat-badge">${r.val}</span></td>
-                </tr>`;
-            });
-            table.innerHTML = html;
-        }
-        showStats('goals');
-
         const matchData = {
             latest: {
-                match_info: "5-й тур | Высшая лига | 03.10.2026",
-                team1: "Виртуоз",
-                score: "5 : 7",
+                match_info: "7-й тур | EVO Высшая лига | 18.10.2026",
+                team1: "The Smash",
+                score: "5 : 4",
                 team2: "Факел",
-                events1: [{ event: "Игроки Виртуоза (5 голов)" }],
+                events1: [
+                    { event: "⚽ Тигран Алексанян (пас А. Толкунов) 21'" },
+                    { event: "⚽ Владислав Конюх (пас И. Яицкий) 27'" },
+                    { event: "⚽ Егор Карташов (пас И. Яицкий) 52'" },
+                    { event: "⚽ Егор Карташов (пас В. Конюх) 53'" },
+                    { event: "⚽ Владислав Конюх (пас Е. Карташов) 54'" }
+                ],
                 events2: [
-                    { event: "С. Гончаренко (⚽⚽⚽)" },
-                    { event: "В. Тимонин (⚽⚽⚽)" },
-                    { event: "Д. Стёпкин (⚽)" }
+                    { event: "22' Валерий Тимонин (пас В. Иутинский) ⚽" },
+                    { event: "43' Даниил Стёпкин (пас С. Гончаренко) ⚽" },
+                    { event: "53' Валерий Тимонин (пас А. Попов) ⚽" },
+                    { event: "59' Валерий Тимонин ⚽" }
                 ]
             },
             upcoming: [
