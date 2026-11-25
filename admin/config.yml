@@ -1,94 +1,96 @@
 backend:
   name: github
-  repo: repo: footballclubfakel161/footballclubfakel161.github.io
+  repo: footballclubfakel161/footballclubfakel161.github.io
   branch: main
-  site_url: https://footballclubfakel161.github.io
 
-media_folder: "Fakel_Site/img"
+site_url: https://footballclubfakel161.github.io
+media_folder: "img"
 public_folder: "img"
-locale: 'ru'
+locale: "ru"
 
 collections:
-  - name: "data"
-    label: "Управление сайтом"
+  - name: "site_data"
+    label: "Данные сайта"
     files:
-      - label: "Новости на главной"
-        name: "news_feed"
-        file: "Fakel_Site/data/news.json"
+      - name: "news"
+        label: "Новости"
+        file: "data/news.json"
         fields:
-          - label: "Посты"
+          - label: "Записи"
             name: "posts"
             widget: "list"
             fields:
-              - {label: "Заголовок", name: "title", widget: "string"}
-              - {label: "Дата", name: "date", widget: "string"}
-              - {label: "Текст", name: "body", widget: "text"}
-              - {label: "Фотография", name: "image", widget: "image", required: false}
+              - { label: "Заголовок", name: "title", widget: "string" }
+              - { label: "Дата (ДД.ММ.ГГГГ)", name: "date", widget: "string" }
+              - { label: "Фото", name: "image", widget: "image", required: false }
+              - { label: "Текст", name: "body", widget: "text" }
 
-      - label: "Турнирная таблица"
-        name: "standings"
-        file: "Fakel_Site/data/standings.json"
-        fields:
-          - label: "Команды"
-            name: "teams"
-            widget: "list"
-            fields:
-              - {label: "Позиция", name: "position", widget: "number"}
-              - {label: "Название", name: "name", widget: "string"}
-              - {label: "Игры", name: "games", widget: "number"}
-              - {label: "Победы", name: "wins", widget: "number"}
-              - {label: "Ничьи", name: "draws", widget: "number"}
-              - {label: "Поражения", name: "losses", widget: "number"}
-              - {label: "Разница голов", name: "goals_diff", widget: "string"}
-              - {label: "Очки", name: "points", widget: "number"}
-
-      - label: "Последний матч"
-        name: "latest_result"
-        file: "Fakel_Site/data/latest_result.json"
-        fields:
-          - {label: "Турнир и дата", name: "match_info", widget: "string"}
-          - {label: "Команда 1 (Хозяева)", name: "team1", widget: "string"}
-          - {label: "Счет", name: "score", widget: "string"}
-          - {label: "Команда 2 (Гости)", name: "team2", widget: "string"}
-          - label: "События Команды 1"
-            name: "events1"
-            widget: "list"
-            required: false
-            fields:
-              - {label: "Событие и минута", name: "event", widget: "string"}
-          - label: "События Команды 2"
-            name: "events2"
-            widget: "list"
-            required: false
-            fields:
-              - {label: "Событие и минута", name: "event", widget: "string"}
-
-      - label: "Предстоящие матчи"
-        name: "upcoming"
-        file: "Fakel_Site/data/upcoming.json"
-        fields:
-          - label: "Матчи"
-            name: "matches"
-            widget: "list"
-            fields:
-              - {label: "Дата и тур", name: "date", widget: "string"}
-              - {label: "Название матча", name: "title", widget: "string"}
-
-      - label: "Состав команды"
-        name: "team_roster"
-        file: "Fakel_Site/data/team.json"
+      - name: "team"
+        label: "Состав команды"
+        file: "data/team.json"
         fields:
           - label: "Игроки"
             name: "players"
             widget: "list"
             fields:
-              - {label: "Имя и Фамилия", name: "name", widget: "string"}
-              - {label: "Номер", name: "number", widget: "string"}
-              - {label: "Амплуа", name: "category", widget: "select", options: ["Вратари", "Защитники", "Полузащитники", "Нападающие"]}
-              - {label: "Фотография", name: "image", widget: "image"}
-              - {label: "Капитан", name: "is_captain", widget: "boolean", default: false, required: false}
-              - {label: "Дата рождения", name: "birthdate", widget: "string"}
-              - {label: "Рост / Вес", name: "physique", widget: "string"}
-              - {label: "Рабочая нога", name: "foot", widget: "string"}
-              - {label: "Дата дебюта", name: "debut", widget: "string"}
-              - {label: "Статистика", name: "stats", widget: "string"}
+              - { label: "ФИО", name: "name", widget: "string" }
+              - { label: "Номер", name: "number", widget: "string" }
+              - label: "Позиция"
+                name: "category"
+                widget: "select"
+                options: ["Вратари", "Защитники", "Полузащитники", "Нападающие"]
+              - { label: "Фото", name: "image", widget: "image", required: false }
+              - { label: "Капитан", name: "is_captain", widget: "boolean", default: false }
+              - { label: "Дата рождения", name: "birthdate", widget: "string" }
+              - { label: "Рост / Вес", name: "physique", widget: "string" }
+              - { label: "Рабочая нога", name: "foot", widget: "string" }
+              - { label: "Дата дебюта", name: "debut", widget: "string" }
+              - { label: "Статистика", name: "stats", widget: "string" }
+
+      - name: "standings"
+        label: "Турнирная таблица"
+        file: "data/standings.json"
+        fields:
+          - label: "Команды"
+            name: "teams"
+            widget: "list"
+            fields:
+              - { label: "Место", name: "position", widget: "number" }
+              - { label: "Команда", name: "name", widget: "string" }
+              - { label: "Игры", name: "games", widget: "number" }
+              - { label: "Победы", name: "wins", widget: "number" }
+              - { label: "Ничьи", name: "draws", widget: "number" }
+              - { label: "Поражения", name: "losses", widget: "number" }
+              - { label: "Разница голов", name: "goals_diff", widget: "string" }
+              - { label: "Очки", name: "points", widget: "number" }
+
+      - name: "latest_result"
+        label: "Последний матч"
+        file: "data/latest_result.json"
+        fields:
+          - { label: "Инфо о матче", name: "match_info", widget: "string" }
+          - { label: "Команда 1", name: "team1", widget: "string" }
+          - { label: "Счёт", name: "score", widget: "string" }
+          - { label: "Команда 2", name: "team2", widget: "string" }
+          - label: "События команды 1"
+            name: "events1"
+            widget: "list"
+            fields:
+              - { label: "Событие", name: "event", widget: "string" }
+          - label: "События команды 2"
+            name: "events2"
+            widget: "list"
+            fields:
+              - { label: "Событие", name: "event", widget: "string" }
+
+      - name: "upcoming"
+        label: "Ближайшие матчи"
+        file: "data/upcoming.json"
+        fields:
+          - label: "Матчи"
+            name: "matches"
+            widget: "list"
+            fields:
+              - { label: "Дата и тур", name: "date", widget: "string" }
+              - { label: "Матч", name: "title", widget: "string" }
+              - { label: "Стадион", name: "stadium", widget: "string", required: false }
