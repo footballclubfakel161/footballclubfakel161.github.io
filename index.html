@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Официальный сайт</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Официальный сайт ЛФК «Факел» (Ростов-на-Дону). Новости клуба, турнирная таблица, состав команды и расписание матчей.">
     <link rel="icon" type="image/png" href="img/logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -14,9 +14,16 @@
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span>
+        <div class="nav-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+            </div>
+            <a href="index.html" class="nav-brand">
+                <img src="img/logo.png?v=2" alt="ЛФК Факел">
+                <span>ЛФК «ФАКЕЛ»</span>
+            </a>
         </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">🌙 Тёмная</button>
     </nav>
 
     <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -24,14 +31,17 @@
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
             <li><a href="index.html" class="active"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="Веб 4.html">Матчи</a></li>
+
             <div class="sidebar-title">Клуб</div>
-            <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
-            <div class="sidebar-title">Турнир</div>
-            <li><a href="Веб 4.html">Матч-центр</a></li>
-            <div class="sidebar-title">Медиа и Партнеры</div>
+            <li><a href="about.html">О клубе</a></li>
+
+            <div class="sidebar-title">Медиа</div>
             <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
             <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
+
+            <div class="sidebar-title">Сотрудничество</div>
             <li><a href="Веб 5.html">Партнерам</a></li>
         </ul>
     </aside>
@@ -39,14 +49,31 @@
     <header id="top" data-aos="zoom-in">
         <img src="img/logo.png?v=2" alt="Логотип ЛФК Факел" class="huge-logo">
         <h1 class="title">ЛФК <span>«ФАКЕЛ»</span></h1>
-        <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
+        <p class="subtitle">РОСТОВ-НА-ДОНУ • ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
 
     <div class="container">
+        <!-- КРУПНАЯ ТУРНИРНАЯ ТАБЛИЦА ПОД ЭМБЛЕМОЙ -->
+        <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА • ВЫСШАЯ ЛИГА</h2>
+        <div class="match-card" data-aos="fade-up" style="overflow-x: auto; padding: 28px;">
+            <table class="standings-table" id="standings-table">
+                <tr>
+                    <th style="width: 45px;">#</th>
+                    <th class="team-cell">Команда</th>
+                    <th title="Игры">И</th>
+                    <th title="Победы">В</th>
+                    <th title="Ничьи">Н</th>
+                    <th title="Поражения">П</th>
+                    <th title="Разница голов">РГ</th>
+                    <th title="Очки">Очки</th>
+                </tr>
+            </table>
+        </div>
+
         <div id="vk-error" style="display:none; background: #ffebee; color: #c62828; padding: 20px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; border: 2px solid #ef5350;"></div>
-        
+
         <div class="news-feed-section">
-            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 50px;">СВЕЖИЕ НОВОСТИ</h2>
+            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 40px;">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
                 <p style="text-align: center; color: var(--brand-blue); font-weight: 800; font-size: 20px;">ЗАГРУЗКА ИНФОРМАЦИИ...</p>
             </div>
@@ -66,15 +93,56 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, offset: 50 });
+
+        // Переключение светлой / тёмной темы
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fakel-theme', theme);
+            const btn = document.getElementById('theme-toggle');
+            if (btn) btn.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        applyTheme(localStorage.getItem('fakel-theme') || 'light');
+
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
+        // Актуальная турнирная таблица (после 7 туров)
+        const standingsData = [
+            { position: 1, name: "FC Soroka", games: 7, wins: 5, draws: 1, losses: 1, goals_diff: "16", points: 16 },
+            { position: 2, name: "АКД", games: 7, wins: 5, draws: 0, losses: 2, goals_diff: "2", points: 15 },
+            { position: 3, name: "The Smash", games: 7, wins: 4, draws: 0, losses: 3, goals_diff: "6", points: 12 },
+            { position: 4, name: "ZaDrots", games: 7, wins: 3, draws: 1, losses: 3, goals_diff: "4", points: 10 },
+            { position: 5, name: "ФК Рассвет", games: 7, wins: 3, draws: 1, losses: 3, goals_diff: "-4", points: 10 },
+            { position: 6, name: "ФК Батайск", games: 7, wins: 3, draws: 1, losses: 3, goals_diff: "-2", points: 10 },
+            { position: 7, name: "Факел", games: 7, wins: 2, draws: 0, losses: 5, goals_diff: "-5", points: 6 },
+            { position: 8, name: "Виртуоз", games: 7, wins: 1, draws: 0, losses: 6, goals_diff: "-17", points: 3 }
+        ];
+
+        const table = document.getElementById('standings-table');
+        standingsData.forEach(team => {
+            const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
+            table.innerHTML += `<tr ${isFakel}>
+                <td>${team.position}</td>
+                <td class="team-cell">${team.name}</td>
+                <td>${team.games}</td>
+                <td>${team.wins}</td>
+                <td>${team.draws}</td>
+                <td>${team.losses}</td>
+                <td>${team.goals_diff}</td>
+                <td><strong>${team.points}</strong></td>
+            </tr>`;
+        });
+
         let allPosts = [];
-        const VK_GROUP_ID = '-227517599'; 
-        const VK_TOKEN = '091ee42a091ee42a091ee42a0d0a5ad5f10091e091ee42a63a19f9ea72afca662d8c301'; 
+        const VK_GROUP_ID = '-227517599';
+        const VK_TOKEN = '091ee42a091ee42a091ee42a0d0a5ad5f10091e091ee42a63a19f9ea72afca662d8c301';
 
         function fetchCMS() {
             return fetch('data/news.json').then(res => res.json()).then(data => {
@@ -85,7 +153,7 @@
                     }));
                     allPosts.push(...cmsPosts);
                 }
-            }).catch(e => console.log('CMS news wait'));
+            }).catch(() => {});
         }
 
         function fetchVK() {
@@ -96,12 +164,12 @@
                         document.getElementById('vk-error').innerHTML = `Ошибка доступа ВКонтакте: ${response.error.error_msg}`;
                         resolve(); return;
                     }
-                    if(response && response.response && response.response.items) {
+                    if (response && response.response && response.response.items) {
                         const vkPosts = response.response.items.map(p => {
                             let imgUrl = '';
-                            if(p.attachments) {
+                            if (p.attachments) {
                                 const photoAtt = p.attachments.find(a => a.type === 'photo');
-                                if(photoAtt) { imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url; }
+                                if (photoAtt) imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url;
                             }
                             return {
                                 type: 'vk', title: 'ОФИЦИАЛЬНОЕ СООБЩЕСТВО', body: p.text, image: imgUrl,
@@ -115,7 +183,7 @@
                 };
                 const script = document.createElement('script');
                 script.src = `https://api.vk.com/method/wall.get?owner_id=${VK_GROUP_ID}&count=15&access_token=${VK_TOKEN}&v=5.131&callback=processVKPosts`;
-                script.onerror = () => resolve(); 
+                script.onerror = () => resolve();
                 document.body.appendChild(script);
                 setTimeout(resolve, 3000);
             });
@@ -124,59 +192,80 @@
         Promise.allSettled([fetchCMS(), fetchVK()]).then(() => renderFeed());
 
         function parseDate(dateStr) {
-            if(!dateStr) return 0;
+            if (!dateStr) return 0;
             const parts = dateStr.split('.');
-            if(parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]).getTime();
+            if (parts.length === 3) return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
             return Date.now();
         }
 
         function renderFeed() {
             const mainContainer = document.getElementById('unified-feed');
             const archiveContainer = document.getElementById('archive-feed');
-            mainContainer.innerHTML = ''; archiveContainer.innerHTML = '';
+            mainContainer.innerHTML = '';
+            archiveContainer.innerHTML = '';
 
             if (allPosts.length === 0) {
                 mainContainer.innerHTML = `<div class="cms-news-card"><h3 class="cms-news-title" style="text-align:center;">НОВОСТЕЙ ПОКА НЕТ</h3></div>`;
                 return;
             }
             allPosts.sort((a, b) => b.timestamp - a.timestamp);
-            
-            const topPosts = allPosts.slice(0, 3); 
-            const olderPosts = allPosts.slice(3); 
-            
+
+            const topPosts = allPosts.slice(0, 3);
+            const olderPosts = allPosts.slice(3);
+
             topPosts.forEach(post => {
                 const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
                 const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light);"` : ``;
-                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Подробнее в ВК</a>` : '';
                 const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
 
-                mainContainer.innerHTML += `
-                    <article class="cms-news-card" data-aos="fade-up">
-                        ${imgHtml}
-                        <span class="cms-news-date">${post.dateStr}</span>
-                        <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
-                        <p class="cms-news-text">${cleanBody}</p>${vkBtn}
-                    </article>
-                `;
+                if (post.type === 'vk') {
+                    mainContainer.innerHTML += `
+                        <a href="${post.link}" target="_blank" class="cms-news-card clickable-card" data-aos="fade-up">
+                            ${imgHtml}
+                            <span class="cms-news-date">${post.dateStr}</span>
+                            <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
+                            <p class="cms-news-text">${cleanBody}</p>
+                            <span class="vk-link">Подробнее в ВК</span>
+                        </a>
+                    `;
+                } else {
+                    mainContainer.innerHTML += `
+                        <article class="cms-news-card" data-aos="fade-up">
+                            ${imgHtml}
+                            <span class="cms-news-date">${post.dateStr}</span>
+                            <h3 class="cms-news-title">${post.title}</h3>
+                            <p class="cms-news-text">${cleanBody}</p>
+                        </article>
+                    `;
+                }
             });
 
             if (olderPosts.length > 0) {
                 document.getElementById('archive-section').style.display = 'block';
                 olderPosts.forEach(post => {
                     const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                    const titleStyle = post.type === 'vk' ? `style="color: var(--brand-blue); font-size: 20px;"` : ``;
-                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto; padding: 10px 20px;">В ВК</a>` : '';
                     const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
-                    
-                    archiveContainer.innerHTML += `
-                        <div class="archive-card">
-                            ${imgHtml}
-                            <span class="cms-news-date">${post.dateStr}</span>
-                            <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
-                            <p class="cms-news-text">${cleanBody}</p>
-                            ${vkBtn}
-                        </div>
-                    `;
+
+                    if (post.type === 'vk') {
+                        archiveContainer.innerHTML += `
+                            <a href="${post.link}" target="_blank" class="archive-card clickable-card">
+                                ${imgHtml}
+                                <span class="cms-news-date">${post.dateStr}</span>
+                                <h3 class="cms-news-title">${post.title}</h3>
+                                <p class="cms-news-text">${cleanBody}</p>
+                                <span class="vk-link" style="margin-top:auto; padding: 10px 20px; text-align:center;">В ВК</span>
+                            </a>
+                        `;
+                    } else {
+                        archiveContainer.innerHTML += `
+                            <div class="archive-card">
+                                ${imgHtml}
+                                <span class="cms-news-date">${post.dateStr}</span>
+                                <h3 class="cms-news-title">${post.title}</h3>
+                                <p class="cms-news-text">${cleanBody}</p>
+                            </div>
+                        `;
+                    }
                 });
             }
         }
